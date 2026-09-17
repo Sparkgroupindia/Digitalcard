@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ff5b00">
+<link rel="manifest" href="manifest.json">
+<title>Digital Visiting Card</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff}
+iframe{border:0;width:100%;height:100%;display:block}
+.splash{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;background:#fff;z-index:5;font-family:Arial}
+.splash b{font-size:24px;color:#ff5b00}.splash span{margin-top:8px;color:#888;animation:blink 1s infinite}@keyframes blink{50%{opacity:.25}}
+</style>
+</head>
+<body>
+<div class="splash" id="splash"><b>Digital Visiting Card</b><span>loading...</span></div>
+<iframe id="app" allow="camera; microphone"></iframe>
+<script>
+/*
+  IMPORTANT:
+  Replace APPS_SCRIPT_URL below with your deployed Apps Script Web App URL.
+*/
+const APPS_SCRIPT_URL="https://script.google.com/macros/s/AKfycbyk8z0M3jofFpOw1rpSSteprO6ZHpEkMsJe68lKB9VO6FcmOD4r8BjY6KdUDYSecx4i/exec";
+const qs=location.search||"";
+document.getElementById("app").src=APPS_SCRIPT_URL+qs;
+document.getElementById("app").onload=()=>setTimeout(()=>document.getElementById("splash").style.display="none",250);
+if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
